@@ -1,37 +1,37 @@
 # Automatically generated from all.nw using noweb
-# TODO add params and example and return
+# TODO: Add detailed descriptions for parameters, examples, and return values
 
-#' Fourth routine alignement
+#' Fourth routine alignment
 #'
 #' @description
 #' This is the last of the four co-routines.
 #'
 #' @details
-#' The alignped4 routine is the final step of alignment.  It attempts to line
-#' up children under parents and put spouses and siblings `close' to each other,
+#' The alignped4 routine is the final step of alignment. It attempts to line
+#' up children under parents and put spouses and siblings close to each other,
 #' to the extent possible within the constraints of page width.
 #' The current code does necessary setup and then calls the \code{quadprog}
 #' function.
 #' There are two important parameters for the function:
-#' One is the user specified maximum width.  The smallest possible width is the
-#' maximum number of subjects on a line, if the user suggestion is too low it is
-#' increased to that 1+ that amount (to give just a little wiggle room).
+#' One is the user-specified maximum width. The smallest possible width is the
+#' maximum number of subjects on a line. If the user suggestion is too low, it is
+#' increased to that amount plus one (to give just a little wiggle room).
 #' The other is a vector of 2 alignment parameters $a$ and $b$.
 #' For each set of siblings ${x}$ with parents at $p_1$ and $p_2$
-#' the alignment penalty is :
+#' the alignment penalty is:
 #' $$
-#'    (1/k^a)\sum{i=1}{k} (x_i - (p_1 + p_2)^2
+#'    (1/k^a)\sum_{i=1}^{k} (x_i - (p_1 + p_2)/2)^2
 #' $$
 #' where $k$ is the number of siblings in the set.
 #' Using the fact that $\sum(x_i-c)^2 = \sum(x_i-\mu)^2 + k(c-\mu)^2$,
 #' when $a=1$ then moving a sibship with $k$ sibs one unit to the left or
 #' right of optimal will incur the same cost as moving one with only 1 or
-#' two sibs out of place.  If $a=0$ then large sibships are harder to move
-#' than small ones, with the default value $a=1.5$ they are slightly easier
-#' to move than small ones.  The rationale for the default is as long as the
-#' parents are somewhere between the first and last siblings the result looks
+#' two sibs out of place. If $a=0$ then large sibships are harder to move
+#' than small ones. With the default value $a=1.5$, they are slightly easier
+#' to move than small ones. The rationale for the default is as long as the
+#' parents are somewhere between the first and last siblings, the result looks
 #' fairly good, so we are more flexible with the spacing of a large family.
-#' By tethering all the sibs to a single spot they tend are kept close to
+#' By tethering all the sibs to a single spot they tend to be kept close to
 #' each other.
 #' The alignment penalty for spouses is $b(x_1 - x_2)^2$, which tends to keep
 #' them together. The size of $b$ controls the relative importance of sib-parent
@@ -46,18 +46,18 @@
 #' shifted by a constant, the penalty matrix will not be positive definite;
 #' \code{solve.QP} does not like this.
 #' We add a tiny amount of leftward pull to the widest line. }
-#' \item{ Part 2 }{ If there are $k$ subjects on a line there will
-#' be $k+1$ constraints for that line.  The first point must be $\ge 0$, each
-#' subesquent one must be at least 1 unit to the right, and the final point
+#' \item{ Part 2 }{ If there are $k$ subjects on a line, there will
+#' be $k+1$ constraints for that line. The first point must be $\ge 0$, each
+#' subsequent one must be at least 1 unit to the right, and the final point
 #' must be $\le$ the max width. }
 #'
-#' @param rval
-#' @param spouse
-#' @param level
-#' @param width
-#' @param align
+#' @param rval A data structure containing necessary details for alignment.
+#' @param spouse A logical vector indicating spouse relationships.
+#' @param level The level of hierarchy in the pedigree.
+#' @param width The maximum width for alignment.
+#' @param align A vector of two alignment parameters, defaults to c(1.5, 2).
 #'
-#' @return newpos
+#' @return newpos A vector of new positions after alignment.
 #'
 #' @examples
 #' data(sample.ped)
@@ -112,7 +112,7 @@ alignped4 <- function(rval, spouse, level, width, align) {
   pmat[nrow(pmat), myid[maxrow, 1]] <- 1e-5
   ncon <- n + maxlev # number of constraints
   cmat <- matrix(0., nrow = ncon, ncol = n)
-  coff <- 0 # cumulative constraint lines so var
+  coff <- 0 # cumulative constraint lines so far
   dvec <- rep(1., ncon)
   for (lev in 1:maxlev) {
     nn <- rval$n[lev]
@@ -136,13 +136,13 @@ alignped4 <- function(rval, spouse, level, width, align) {
         solve.QP(pp, rep(0., n), t(cmat), dvec)
       },
       warning = function(w) {
-        message(Solve QP ended with a warning)
-        message()(w)
+        message("Solve QP ended with a warning")
+        message(w)
         return(NA)
       },
       error = function(e) {
-        message(Solve QP ended with an error)
-        message(w)
+        message("Solve QP ended with an error")
+        message(e)
         return(NA)
       }
     )
@@ -154,7 +154,7 @@ alignped4 <- function(rval, spouse, level, width, align) {
   newpos <- rval$pos
   # fit <- lsei(pmat, rep(0, nrow(pmat)), G=cmat, H=dvec)
   # newpos[myid>0] <- fit$X[myid]
-  
+
   if (length(fit) > 1) {
     newpos[myid > 0] <- fit$solution[myid]
   }
