@@ -2,7 +2,7 @@
 
 # TODO add params and example
 
-#' First routine alignement
+#' First routine alignment
 #'
 #' @description
 #' This is the first of the four co-routines.

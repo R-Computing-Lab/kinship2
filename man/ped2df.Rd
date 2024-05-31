@@ -23,7 +23,7 @@ Convert a pedigree object to adata.frame
 }
 \examples{
 data(sample.ped)
-ped <- with(sample.ped,pedigree(id, father, mother, sex))
+ped <- with(sample.ped, pedigree(id, father, mother, sex))
 ped2df(ped)
 }
 \seealso{

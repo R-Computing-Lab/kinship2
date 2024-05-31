@@ -2,7 +2,7 @@
 % Please edit documentation in R/alignped1.R
 \name{alignped1}
 \alias{alignped1}
-\title{First routine alignement}
+\title{First routine alignment}
 \usage{
 alignped1(x, dad, mom, level, horder, packed, spouselist)
 }
@@ -56,7 +56,7 @@ The third is when below is narrower, for instance an only child. }
 }
 \examples{
 data(sample.ped)
-ped <- with(sample.ped,pedigree(id, father, mother, sex, affected))
+ped <- with(sample.ped, pedigree(id, father, mother, sex, affected))
 align.pedigree(ped)
 
 }

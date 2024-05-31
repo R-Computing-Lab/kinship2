@@ -2,7 +2,7 @@
 % Please edit documentation in R/alignped2.R
 \name{alignped2}
 \alias{alignped2}
-\title{Second routine alignement}
+\title{Second routine alignment}
 \usage{
 alignped2(x, dad, mom, level, horder, packed, spouselist)
 }
@@ -34,7 +34,7 @@ onto rval. The rule thus is to not add any 1 element tree whose value
 }
 \examples{
 data(sample.ped)
-ped <- with(sample.ped,pedigree(id, father, mother, sex, affected))
+ped <- with(sample.ped, pedigree(id, father, mother, sex, affected))
 align.pedigree(ped)
 
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/alignped3.R
 \name{alignped3}
 \alias{alignped3}
-\title{Third routine alignement}
+\title{Third routine alignment}
 \usage{
 alignped3(x1, x2, packed, space = 1)
 }
@@ -37,7 +37,7 @@ Compute how far over we have to slide the right tree.}
 }
 \examples{
 data(sample.ped)
-ped <- with(sample.ped,pedigree(id, father, mother, sex, affected))
+ped <- with(sample.ped, pedigree(id, father, mother, sex, affected))
 align.pedigree(ped)
 
 }

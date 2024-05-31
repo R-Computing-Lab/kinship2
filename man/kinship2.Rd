@@ -2,6 +2,7 @@
 % Please edit documentation in R/kinship2.R
 \docType{package}
 \name{kinship2}
+\alias{kinship2-package}
 \alias{kinship2}
 \title{The kinship2 package for pedigree data}
 \description{
@@ -42,5 +43,28 @@ procedure when using the \code{/list} option of the \code{TABLE} statement.
 
 \examples{
 library(kinship2)
+
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://cran.r-project.org/package=kinship2}
+}
+
+}
+\author{
+\strong{Maintainer}: Jason Sinnwell \email{sinnwell.jason@mayo.edu}
+
+Authors:
+\itemize{
+  \item Terry Therneau
+}
+
+Other contributors:
+\itemize{
+  \item Daniel Schaid [contributor]
+  \item Elizabeth Atkinson [contributor]
+  \item Carly Mester [contributor]
+}
 
 }

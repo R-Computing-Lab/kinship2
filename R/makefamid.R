@@ -17,7 +17,7 @@
 #' @param id Identifier for each subject in the set of pedigrees
 #' @param father.id Identifier for the father.  This will be 0 or "" for a
 #' founder.
-#' @param mother.id Identifer for the mother.
+#' @param mother.id Identifier for the mother.
 #'
 #' @return An integer vector giving family groupings
 #'

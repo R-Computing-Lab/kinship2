@@ -20,7 +20,7 @@ Extract the internal data from a pedigree object into a data.frame
 }
 \examples{
 data(sample.ped)
-ped <- with(sample.ped,pedigree(id, father, mother, sex, affected))
+ped <- with(sample.ped, pedigree(id, father, mother, sex, affected))
 as.data.frame.pedigree(ped)
 
 }
